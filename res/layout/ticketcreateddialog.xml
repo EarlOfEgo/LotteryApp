@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/layout_root"
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:padding="10dp"
+              >
+    <ImageView android:id="@+id/image"
+               android:layout_width="wrap_content"
+               android:layout_height="fill_parent"
+               android:layout_marginRight="10dp"
+               />
+    <TableLayout
+        	android:id="@+id/tableLayout11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.36" 
+        	>
+        <TableRow 
+            android:id="@+id/tableRow11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+	        <TextView android:id="@+id/idOfTicket"
+	              android:layout_width="wrap_content"
+	              android:layout_height="fill_parent"
+	              android:textColor="#FFF"
+	              android:text="ID:"
+	              />
+        </TableRow>
+        <TableRow android:id="@+id/tableRow12"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/uuid"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:textColor="#FFF"
+            android:textSize="10dp" />
+
+        </TableRow>
+        
+            
+            
+        <TableRow 
+            android:id="@+id/tableRow13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+	        <TextView
+	            android:id="@+id/numbersInDialog"
+	            android:layout_width="wrap_content"
+	            android:layout_height="fill_parent"
+	            android:text="@string/nameOfNumber"
+	            android:textColor="#FFF" />
+
+        </TableRow>
+        <TableRow android:id="@+id/tableRow14"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content">
+        <TextView android:id="@+id/numbers"
+              android:layout_width="wrap_content"
+              android:layout_height="fill_parent"
+              android:textColor="#FFF"
+              />
+        </TableRow>
+    </TableLayout>
+    
+</LinearLayout>

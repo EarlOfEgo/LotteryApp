@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, LotteryAppActivity!</string>
+    <string name="app_name">LotteryApp</string>
+	<string name="chooseNumbers">Add this number</string>
+	<string name="OKButton">OK</string>
+	<string name="CANCELButton">Cancel</string>
+	<string name="deleteNumbers">Are you sure you want to delete all numbers?</string>
+	<string name="clearNumbers">Delete all numbers of the ticket</string>
+	<string name="deleteLastNumber">Delete previous Number</string>
+	<string name="generateTicketButton">Generate the ticket</string>
+	<string name="loadTicketButton">Load a ticket</string>
+	<string name="saveTicketButton">Save the ticket</string>
+	<string name="ticketCreated">Ticket successfully created</string>
+	<string name="nameOfNumber">Numbers:</string>
+	<string name="chooseTicketToLoad">Ticket:</string>
+	<string name="successfullyLoaded">Ticket loaded successfully</string>
+	<string name="quit">quit</string>
+</resources>

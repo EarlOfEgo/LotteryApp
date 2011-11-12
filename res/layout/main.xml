@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/numberToChoose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Button
+            android:id="@+id/chooseNumbers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/chooseNumbers" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TableLayout
+                android:id="@+id/tableLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.36" >
+
+                <TableRow
+                    android:id="@+id/tableRow1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <LinearLayout
+                        android:id="@+id/ll1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <RelativeLayout
+                            android:id="@+id/relative1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center" >
+
+                            <ImageView
+                                android:id="@+id/imageView1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/lottokugel" />
+
+                            <TextView
+                                android:id="@+id/number1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="36dp"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="#000000"
+                                android:textSize="50dp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/relative2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center" >
+
+                            <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/lottokugel" />
+
+                            <TextView
+                                android:id="@+id/number2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="36dp"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="#000000"
+                                android:textSize="50dp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/relative3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center" >
+
+                            <ImageView
+                                android:id="@+id/imageView3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/lottokugel" />
+
+                            <TextView
+                                android:id="@+id/number3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="36dp"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="#000000"
+                                android:textSize="50dp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <LinearLayout
+                        android:id="@+id/ll2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <RelativeLayout
+                            android:id="@+id/relative4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center" >
+
+                            <ImageView
+                                android:id="@+id/imageView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/lottokugel" />
+
+                            <TextView
+                                android:id="@+id/number4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="36dp"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="#000000"
+                                android:textSize="50dp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/relative5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center" >
+
+                            <ImageView
+                                android:id="@+id/imageView5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/lottokugel" />
+
+                            <TextView
+                                android:id="@+id/number5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="36dp"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="#000000"
+                                android:textSize="50dp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/relative6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center" >
+
+                            <ImageView
+                                android:id="@+id/imageView6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/lottokugel" />
+
+                            <TextView
+                                android:id="@+id/number6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="36dp"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="#000000"
+                                android:textSize="50dp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </TableRow>
+
+                <LinearLayout
+                    android:id="@+id/linearDeleteButtons"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal" 
+                    android:layout_alignParentBottom="true">
+
+                    <Button
+                        android:id="@+id/clearNumbersButton"
+                        android:layout_width="wrap_content" 
+				        android:layout_height="wrap_content"
+				        android:layout_weight="1"
+				        android:textSize="12dp"
+				        
+                        android:text="@string/clearNumbers" />
+
+                    <Button
+                        android:id="@+id/deleteLastButton"
+                        android:layout_width="wrap_content"
+        				android:layout_height="wrap_content"
+        				android:layout_weight="1"
+        				android:textSize="12dp"
+        				
+                        android:text="@string/deleteLastNumber" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/generateTicketButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/generateTicketButton" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal" >
+
+                    <Button
+                        android:id="@+id/saveButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/saveTicketButton" />
+
+                    <Button
+                        android:id="@+id/loadButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/loadTicketButton" />
+                </LinearLayout>
+            </TableLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

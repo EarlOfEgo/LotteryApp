@@ -1,0 +1,19 @@
+
+    <resources>
+        <string name="hello">Hello World, LotteryAppActivity!</string>
+	    <string name="app_name">Lotto Anwendung</string>
+		<string name="chooseNumbers">Füge diese Nummer hinzu</string>
+		<string name="OKButton">Bestätigen</string>
+		<string name="CANCELButton">Abbrechen</string>
+		<string name="deleteNumbers">Bist du dir sicher alle Nummern zu löschen?</string>
+		<string name="clearNumbers">Alle Nummern des Tickets löschen</string>
+		<string name="deleteLastNumber">Vorherige Nummer löschen</string>
+		<string name="generateTicketButton">Das Ticket generieren</string>
+		<string name="loadTicketButton">Ein Ticket laden</string>
+		<string name="saveTicketButton">Ticket speichern</string>
+		<string name="ticketCreated">Ticket wurde erstellt</string>
+		<string name="nameOfNumber">Nummern:</string>
+		<string name="chooseTicketToLoad">Ticket:</string>
+		<string name="successfullyLoaded">Ticket wurde erfolgreich geladen</string>
+		<string name="quit">beenden</string>
+    </resources>
