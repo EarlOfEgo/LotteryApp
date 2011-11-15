@@ -18,6 +18,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,6 +51,8 @@ public class LotteryAppActivity extends Activity implements SeekBar.OnSeekBarCha
 	private Button saveTicket;
 	private Button loadTicket;
 	private Set<String> ticketNames;
+	private UUID uuid;
+	private boolean activeTicket;
     
     
 	/** Called when the activity is first created. */
@@ -66,6 +69,7 @@ public class LotteryAppActivity extends Activity implements SeekBar.OnSeekBarCha
         ticketNames = settings.getStringSet(PREFS_NAME, new HashSet<String>());
         
         ticketGenerated = false;
+        activeTicket = false;
         
         numbers = (TextView)findViewById(R.id.numberToChoose);
         numbers.setText(String.valueOf(new Integer(number)));
@@ -112,7 +116,7 @@ public class LotteryAppActivity extends Activity implements SeekBar.OnSeekBarCha
 				builder.setTitle(R.string.chooseTicketToLoad);
 				builder.setItems(items, new DialogInterface.OnClickListener() {
 				    public void onClick(DialogInterface dialog, int item) {
-				        Toast.makeText(getApplicationContext(), R.string.successfullyLoaded, Toast.LENGTH_SHORT).show();
+				        
 				        FileInputStream fis;
 				        String strFileContent = null;
 						try {
@@ -133,14 +137,24 @@ public class LotteryAppActivity extends Activity implements SeekBar.OnSeekBarCha
 						previousNumbers.clear();
 					    lottaryNumbers.clear();
 					    String[] numbers = strFileContent.split("\\s+");
+					    int i = 0;
 					    for(String tmp: numbers){
 					    	tmp = tmp.trim();
-					    	previousNumbers.add(new Integer(Integer.parseInt(tmp)));
-					    	lottaryNumbers.add(new Integer(Integer.parseInt(tmp)));
+					    	if(i++ < 6){
+					    		previousNumbers.add(new Integer(Integer.parseInt(tmp)));
+						    	lottaryNumbers.add(new Integer(Integer.parseInt(tmp)));
+					    	} else {
+					    		uuid = UUID.fromString(tmp);
+					    		activeTicket = true;
+					    	}
 					    }
 					    Collections.sort(lottaryNumbers);
 					    updateLottaryField();
 					    updateAllButtons();
+					    Resources res = getResources();
+					    String message = String.format(res.getString(R.string.successfullyLoaded), "\n" + uuid + "\n");
+
+					    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 				    }
 				});
 				AlertDialog alert = builder.create();
@@ -181,6 +195,7 @@ public class LotteryAppActivity extends Activity implements SeekBar.OnSeekBarCha
 						for(Integer numb: lottaryNumbers ){
 							string += numb + " ";
 						}
+						string += uuid;
 						string = string.trim();
 						FileOutputStream fos;
 						try {
@@ -230,8 +245,10 @@ public class LotteryAppActivity extends Activity implements SeekBar.OnSeekBarCha
 				dialog.setTitle(R.string.ticketCreated);
 
 				TextView uuidText = (TextView) dialog.findViewById(R.id.uuid);
-				UUID uui = java.util.UUID.randomUUID();
-				uuidText.setText(""+uui);
+				uuid = java.util.UUID.randomUUID();
+				uuidText.setText(""+uuid);
+				activeTicket = true;
+				
 				
 				
 				
@@ -264,6 +281,7 @@ public class LotteryAppActivity extends Activity implements SeekBar.OnSeekBarCha
 				lottaryNumbers.remove(previousNumbers.pop());
 
 				ticketGenerated = false;
+				activeTicket = false;
 				updateLottaryField();
 				updateAllButtons();
 			}});
@@ -284,6 +302,7 @@ public class LotteryAppActivity extends Activity implements SeekBar.OnSeekBarCha
 			        	   lottaryNumbers.clear();
 			        	   previousNumbers.clear();
 			        	   ticketGenerated = false;
+			        	   activeTicket = false;
 			        	   updateLottaryField();
 			        	   updateAllButtons();
 			           }
