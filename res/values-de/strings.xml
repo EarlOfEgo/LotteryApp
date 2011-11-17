@@ -11,9 +11,10 @@
 		<string name="generateTicketButton">Das Ticket generieren</string>
 		<string name="loadTicketButton">Ein Ticket laden</string>
 		<string name="saveTicketButton">Ticket speichern</string>
-		<string name="ticketCreated">Ticket wurde erstellt</string>
+		<string name="ticketCreated">Lotto Ticket</string>
 		<string name="nameOfNumber">Nummern:</string>
 		<string name="chooseTicketToLoad">Ticket:</string>
-		<string name="successfullyLoaded">Ticket wurde erfolgreich geladen</string>
+		<string name="successfullyLoaded">Ticket mit der ID: %1$s erfolgreich geladen</string>
 		<string name="quit">beenden</string>
+		<string name="showTicket">Aktuelles Ticket anzeigen</string>
     </resources>

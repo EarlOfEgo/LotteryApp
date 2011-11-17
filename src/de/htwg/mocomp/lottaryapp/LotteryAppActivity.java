@@ -202,6 +202,7 @@ public class LotteryAppActivity extends Activity implements SeekBar.OnSeekBarCha
 							fos = openFileOutput(ticketName, Context.MODE_PRIVATE);
 							fos.write(string.getBytes());
 							fos.close();
+							savePreferences();
 							ticketNames.add(ticketName);
 							
 						} catch (FileNotFoundException e) {
@@ -245,7 +246,8 @@ public class LotteryAppActivity extends Activity implements SeekBar.OnSeekBarCha
 				dialog.setTitle(R.string.ticketCreated);
 
 				TextView uuidText = (TextView) dialog.findViewById(R.id.uuid);
-				uuid = java.util.UUID.randomUUID();
+				if(!activeTicket)
+					uuid = java.util.UUID.randomUUID();
 				uuidText.setText(""+uuid);
 				activeTicket = true;
 				
@@ -362,6 +364,7 @@ public class LotteryAppActivity extends Activity implements SeekBar.OnSeekBarCha
 		generateTicket.setEnabled(lottaryNumbers.size() >= 6 ? true : false);
 		deleteNumbers.setEnabled(lottaryNumbers.size() > 0 ? true : false);
 		saveTicket.setEnabled(ticketGenerated);
+		generateTicket.setText(activeTicket ? R.string.showTicket : R.string.generateTicketButton);
 	}
 
 
@@ -376,9 +379,7 @@ public class LotteryAppActivity extends Activity implements SeekBar.OnSeekBarCha
 	}
 	
 	
-	@Override
-    protected void onStop(){
-       super.onStop();
+    protected void savePreferences(){
 
        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
        SharedPreferences.Editor editor = settings.edit();
