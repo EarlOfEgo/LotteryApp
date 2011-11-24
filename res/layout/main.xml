@@ -249,24 +249,15 @@
                     android:layout_height="wrap_content"
                     android:text="@string/generateTicketButton" />
 
-                <LinearLayout
-                    android:id="@+id/linearLayout3"
+             
+                <Button
+                    android:id="@+id/saveButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal" >
+                    android:layout_height="match_parent"
+                    android:text="@string/saveTicketButton" />
 
-                    <Button
-                        android:id="@+id/saveButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/saveTicketButton" />
-
-                    <Button
-                        android:id="@+id/loadButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/loadTicketButton" />
-                </LinearLayout>
+                    
+               
             </TableLayout>
         </LinearLayout>
     </LinearLayout>

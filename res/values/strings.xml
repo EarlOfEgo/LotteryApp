@@ -18,4 +18,7 @@
 	<string name="successfullyLoaded">Ticket with ID: %1$s loaded successfully</string>
 	<string name="quit">quit</string>
 	<string name="showTicket">Show actual Ticket</string>
+	<string name="ticketNumber">Ticket Number: </string>
+	<string name="id">ID: </string>
+	<string name="createNewTicket">Create new Ticket</string>
 </resources>

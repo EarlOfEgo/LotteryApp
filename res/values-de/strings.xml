@@ -17,4 +17,5 @@
 		<string name="successfullyLoaded">Ticket mit der ID: %1$s erfolgreich geladen</string>
 		<string name="quit">beenden</string>
 		<string name="showTicket">Aktuelles Ticket anzeigen</string>
+		<string name="createNewTicket">Neues Ticket erstellen</string>
     </resources>
