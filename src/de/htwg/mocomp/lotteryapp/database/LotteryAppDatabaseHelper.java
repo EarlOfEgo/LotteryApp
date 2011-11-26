@@ -17,6 +17,7 @@ public class LotteryAppDatabaseHelper extends SQLiteOpenHelper{
 	private static final String TICKET_NUMBER4 = "number4";
 	private static final String TICKET_NUMBER5 = "number5";
 	private static final String TICKET_NUMBER6 = "number6";
+	private static final String TICKET_DATE = "ticketdate";
 	private static final String LotteryAppCreateTable = 
 									"CREATE TABLE " + TABLE_NAME + " (" +
 									TICKET_ID + " integer primary key autoincrement, " +
@@ -26,7 +27,8 @@ public class LotteryAppDatabaseHelper extends SQLiteOpenHelper{
 									TICKET_NUMBER3 + " INTEGER not NULL, " +
 									TICKET_NUMBER4 + " INTEGER not NULL, " +
 									TICKET_NUMBER5 + " INTEGER not NULL, " +
-									TICKET_NUMBER6 + " INTEGER not NULL);";
+									TICKET_NUMBER6 + " INTEGER not NULL, " +
+									TICKET_DATE + " LONG not NULL);";
 
 
 	public LotteryAppDatabaseHelper(Context context) {

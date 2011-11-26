@@ -37,7 +37,8 @@
         android:layout_alignBottom="@+id/imageView1"
         android:layout_toRightOf="@+id/imageView1"
         android:text="@string/id"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="5pt" />
 
     <TextView
         android:id="@+id/ticketUUID"
@@ -47,6 +48,7 @@
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/textView2"
         android:text="Small Text"
+        android:textSize="4pt"
         android:width="14.5sp" />
 
 </RelativeLayout>

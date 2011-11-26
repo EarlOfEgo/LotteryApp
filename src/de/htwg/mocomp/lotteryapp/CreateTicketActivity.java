@@ -1,37 +1,27 @@
 package de.htwg.mocomp.lotteryapp;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.Stack;
 import java.util.UUID;
-
-import de.htwg.mocomp.lotteryapp.database.LotteryTicket;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import de.htwg.mocomp.lotteryapp.database.LotteryTicket;
 
 public class CreateTicketActivity extends Activity implements SeekBar.OnSeekBarChangeListener{
-    private static final String PREFS_NAME = "my_tickets";
 	private TextView numbers;
     private TextView number1;
     private TextView number2;
@@ -49,31 +39,18 @@ public class CreateTicketActivity extends Activity implements SeekBar.OnSeekBarC
 	private Button generateTicket;
 	private Button deleteLastNumber;
 	private Button saveTicket;
-	private Button loadTicket;
-	private Set<String> ticketNames;
 	private UUID uuid;
 	private boolean activeTicket;
+	private LotteryTicket ticket;
+	private boolean newTicket;
     
     
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);        
-        
-        
-        
-        number = 1;
-        previousNumbers = new Stack<Integer>();
-        lottaryNumbers = new ArrayList<Integer>();
-        
-        
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        ticketNames = settings.getStringSet(PREFS_NAME, new HashSet<String>());
-        
-        ticketGenerated = false;
-        activeTicket = false;
-        
+        setContentView(R.layout.createticket);        
+                
         numbers = (TextView)findViewById(R.id.numberToChoose);
         numbers.setText(String.valueOf(new Integer(number)));
         
@@ -87,14 +64,33 @@ public class CreateTicketActivity extends Activity implements SeekBar.OnSeekBarC
         seekBar = (SeekBar)findViewById(R.id.seekBar);
         seekBar.setOnSeekBarChangeListener(this);
 
-
+        number = 1;
+        previousNumbers = new Stack<Integer>();
+        lottaryNumbers = new ArrayList<Integer>();
+        ticket = (LotteryTicket) getIntent().getSerializableExtra("POJO");
+		if(ticket != null){
+			lottaryNumbers = ticket.getLottaryNumbers();
+			uuid = UUID.fromString(ticket.getUuid());
+			ticketGenerated = true;
+			activeTicket = true;
+			newTicket = false;
+			for (Integer num : lottaryNumbers) {
+				System.out.println(num);
+				previousNumbers.add(num);
+			}
+			updateLottaryField();
+		} else {
+	        ticketGenerated = false;
+	        activeTicket = false;
+	        newTicket = true;
+		}
         
-       chooseNumberButton();
-       deleteNumbersButton();
-       deleteLastNumberButton();
-       generateTicketButton();
-       saveTicketButton();
-       
+		chooseNumberButton();
+		deleteNumbersButton();
+		deleteLastNumberButton();
+		generateTicketButton();
+		saveTicketButton();
+		updateAllButtons();
        
        
        
@@ -109,11 +105,13 @@ public class CreateTicketActivity extends Activity implements SeekBar.OnSeekBarC
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
-				intent.putExtra("UUID", uuid.toString());
-				int i = 1;
-				for(Integer a : lottaryNumbers)
-					intent.putExtra(""+ i++, a);
+				if(newTicket) {
+					ticket = new LotteryTicket();
+					ticket.setUuid(uuid);
+					ticket.setLottaryNumbers(lottaryNumbers);
+				}
 				
+				intent.putExtra("POJO", ticket);				
 				if (getParent() == null) {
 				    setResult(Activity.RESULT_OK, intent);
 				} else {
@@ -139,14 +137,10 @@ public class CreateTicketActivity extends Activity implements SeekBar.OnSeekBarC
 				dialog.setTitle(R.string.ticketCreated);
 
 				TextView uuidText = (TextView) dialog.findViewById(R.id.uuid);
-				if(!activeTicket)
+				if(!activeTicket && newTicket)
 					uuid = java.util.UUID.randomUUID();
 				uuidText.setText(""+uuid);
 				activeTicket = true;
-				
-				
-				
-				
 				TextView numbersText = (TextView) dialog.findViewById(R.id.numbers);
 				String numbers = "";
 				for(Integer numb: lottaryNumbers ){
@@ -186,7 +180,6 @@ public class CreateTicketActivity extends Activity implements SeekBar.OnSeekBarC
 
 	private void deleteNumbersButton() {
 		deleteNumbers = (Button) findViewById(R.id.clearNumbersButton);
-		deleteNumbers.setEnabled(false);
 		deleteNumbers.setOnClickListener(new View.OnClickListener(){
 
 			@Override
@@ -214,7 +207,6 @@ public class CreateTicketActivity extends Activity implements SeekBar.OnSeekBarC
 
 			@Override
 			public void onClick(View v) {
-				
 				lottaryNumbers.add(number);
 				previousNumbers.push(number);
 				Collections.sort(lottaryNumbers);
@@ -257,7 +249,7 @@ public class CreateTicketActivity extends Activity implements SeekBar.OnSeekBarC
 		generateTicket.setEnabled(lottaryNumbers.size() >= 6 ? true : false);
 		deleteNumbers.setEnabled(lottaryNumbers.size() > 0 ? true : false);
 		saveTicket.setEnabled(ticketGenerated);
-		generateTicket.setText(activeTicket ? R.string.showTicket : R.string.generateTicketButton);
+		generateTicket.setText(!newTicket || activeTicket ? R.string.showTicket : R.string.generateTicketButton);
 	}
 
 
@@ -271,39 +263,16 @@ public class CreateTicketActivity extends Activity implements SeekBar.OnSeekBarC
 		number6.setText(lottaryNumbers.size() > 5 ? String.valueOf(new Integer(lottaryNumbers.get(5))) : "");
 	}
 	
-	
-    protected void savePreferences(){
-
-       SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-       SharedPreferences.Editor editor = settings.edit();
-       editor.putStringSet(PREFS_NAME, ticketNames);
-       editor.commit();
-    }
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu){
-		menu.add(0,1,0,R.string.quit); 
+		menu.add(0,1,0,R.string.back); 
 	    return true;
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected (MenuItem item){
-		Intent intent = new Intent();
-		intent.putExtra("UUID", uuid.toString());
-		int i = 1;
-		for(Integer a : lottaryNumbers)
-			intent.putExtra(""+ i++, a);
-		
-		if (this.getParent() == null) {
-		    setResult(Activity.RESULT_OK, intent);
-		} else {
-		    getParent().setResult(Activity.RESULT_OK, intent);
-		}
 		finish();
-
-
 		return true;
 	}
-
 
 }

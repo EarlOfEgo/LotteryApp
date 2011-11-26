@@ -18,4 +18,12 @@
 		<string name="quit">beenden</string>
 		<string name="showTicket">Aktuelles Ticket anzeigen</string>
 		<string name="createNewTicket">Neues Ticket erstellen</string>
+		<string name="back">Zurück</string>
+		<string name="edit">Bearbeiten</string>
+		<string name="delete">Löschen</string>
+		<string name="creationDate">Erstellungsdatum:</string>
+		<string name="successfullyDeleted">Ticket Nummer: %1$s erfolgreich gelöscht</string>
+		<string name="successfullyEdited">Ticket Nummer: %1$s erfolgreich berarbeitet</string>
+		<string name="successfullyCreated">Ticket Nummer: %1$s erfolgreich erstellt</string>
+		<string name="deleteTicket">Ticket: %1$s wirklich löschen?</string>
     </resources>

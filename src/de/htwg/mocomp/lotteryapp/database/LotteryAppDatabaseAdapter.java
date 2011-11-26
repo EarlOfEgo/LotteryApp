@@ -22,6 +22,7 @@ public class LotteryAppDatabaseAdapter {
 	private static final String TICKET_NUMBER4 = "number4";
 	private static final String TICKET_NUMBER5 = "number5";
 	private static final String TICKET_NUMBER6 = "number6";
+	private static final String TICKET_DATE = "ticketdate";
 	
 	public LotteryAppDatabaseAdapter(Context context) {
 		this.context = context;
@@ -44,17 +45,38 @@ public class LotteryAppDatabaseAdapter {
 		for(Integer number : ticket.getLottaryNumbers()){
 			contentValues.put("number" + i++, number);
 		}
+		
+		contentValues.put(TICKET_DATE, ticket.getTicketCreationDate().getTime());
 		return database.insert(TABLE_NAME, null, contentValues);
 	}
 	
 	public Cursor getAllTickets(){
 		return database.query(TABLE_NAME,
 							new String[] {	TICKET_ID, TICKET_UUID, TICKET_NUMBER1, TICKET_NUMBER2,
-											TICKET_NUMBER3, TICKET_NUMBER4, TICKET_NUMBER5, TICKET_NUMBER6 }, 
+											TICKET_NUMBER3, TICKET_NUMBER4, TICKET_NUMBER5, TICKET_NUMBER6, TICKET_DATE }, 
 							null, null, null, null, null);
 	}
 	
 	public int removeTicket(long id){
 		return database.delete(TABLE_NAME, TICKET_ID + "=" + id, null);
+	}
+	
+	public Cursor getTicket(int id){
+		String select = "SELECT * FROM " + TABLE_NAME +" WHERE _id == " + id;
+		Cursor cursor = database.rawQuery(select, null);
+		if(cursor != null) 
+			cursor.moveToFirst();
+		return cursor;
+	}
+	
+	public void updateTicket(LotteryTicket ticket){
+		ContentValues values = new ContentValues();
+		values.put(TICKET_UUID, ticket.getUuid().toString());
+		values.put(TICKET_DATE, ticket.getTicketCreationDate().getTime());
+		int i = 1;
+		for (Integer n: ticket.getLottaryNumbers()) {
+			values.put("number"+ i++, n);
+		}
+		database.update(TABLE_NAME, values , TICKET_ID + " = " + ticket.getId(), null);
 	}
 }

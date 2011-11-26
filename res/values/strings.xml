@@ -15,10 +15,17 @@
 	<string name="ticketCreated">Lottery Ticket</string>
 	<string name="nameOfNumber">Numbers:</string>
 	<string name="chooseTicketToLoad">Ticket:</string>
-	<string name="successfullyLoaded">Ticket with ID: %1$s loaded successfully</string>
-	<string name="quit">quit</string>
+	<string name="quit">Quit</string>
 	<string name="showTicket">Show actual Ticket</string>
 	<string name="ticketNumber">Ticket Number: </string>
-	<string name="id">ID: </string>
+	<string name="id">Ticket ID:</string>
 	<string name="createNewTicket">Create new Ticket</string>
+	<string name="back">Back</string>
+	<string name="edit">Edit</string>
+	<string name="delete">Delete</string>
+	<string name="creationDate">Creation date:</string>
+	<string name="successfullyDeleted">Ticket number: %1$s successfully deleted</string>
+	<string name="successfullyEdited">Ticket number: %1$s successfully changed</string>
+	<string name="successfullyCreated">Ticket number: %1$s successfully created</string>
+	<string name="deleteTicket">Are you sure you want to delete the ticket: %1$s?</string>
 </resources>
