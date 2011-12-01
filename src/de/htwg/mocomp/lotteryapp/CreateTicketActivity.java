@@ -143,8 +143,10 @@ public class CreateTicketActivity extends Activity implements SeekBar.OnSeekBarC
 				activeTicket = true;
 				TextView numbersText = (TextView) dialog.findViewById(R.id.numbers);
 				String numbers = "";
+				int i = 0;
 				for(Integer numb: lottaryNumbers ){
-					numbers += numb + ", ";
+					numbers += numb;
+					if(i++ < 5) numbers += ", ";
 				}
 				
 				numbersText.setText(numbers);
@@ -263,16 +265,16 @@ public class CreateTicketActivity extends Activity implements SeekBar.OnSeekBarC
 		number6.setText(lottaryNumbers.size() > 5 ? String.valueOf(new Integer(lottaryNumbers.get(5))) : "");
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu){
-		menu.add(0,1,0,R.string.back); 
-	    return true;
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected (MenuItem item){
-		finish();
-		return true;
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu){
+//		menu.add(0,1,0,R.string.back); 
+//	    return true;
+//	}
+//	
+//	@Override
+//	public boolean onOptionsItemSelected (MenuItem item){
+//		finish();
+//		return true;
+//	}
 
 }

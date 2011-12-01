@@ -52,7 +52,7 @@ public class ShowTicketActivity extends Activity{
 	public boolean onCreateOptionsMenu(Menu menu){
 		menu.add(0,1,0, R.string.edit); 
 		menu.add(0,2,0, R.string.delete);
-		menu.add(0,3,0, R.string.back); 
+//		menu.add(0,3,0, R.string.back); 
 		
 	    return true;
 	}
@@ -76,9 +76,9 @@ public class ShowTicketActivity extends Activity{
 				}
 				finish();
 				break;
-			case 3:
-				finish();
-				break;
+//			case 3:
+//				finish();
+//				break;
 		}
 		 
 		return true;

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class LotteryTicket implements Serializable{
+public class LotteryTicket implements Serializable {
 	/**
 	 * 
 	 */
@@ -16,26 +16,29 @@ public class LotteryTicket implements Serializable{
 	private boolean delete;
 	private List<Integer> lotteryNumbers;
 	private Date ticketCreationDate;
-	
-	public LotteryTicket(){
+
+	public LotteryTicket() {
 		lotteryNumbers = new ArrayList<Integer>();
 		id = -1;
 		setDelete(false);
 	}
-	
+
 	public String getUuid() {
 		return uuid.toString();
 	}
+
 	public void setUuid(UUID uuid) {
 		this.uuid = uuid;
 	}
+
 	public List<Integer> getLottaryNumbers() {
 		return lotteryNumbers;
 	}
-	public void addLotteryNumber(int number){
+
+	public void addLotteryNumber(int number) {
 		lotteryNumbers.add(number);
 	}
-	
+
 	public void setLottaryNumbers(List<Integer> lottaryNumbers) {
 		this.lotteryNumbers = lottaryNumbers;
 	}

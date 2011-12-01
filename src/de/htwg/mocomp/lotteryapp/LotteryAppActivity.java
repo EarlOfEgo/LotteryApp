@@ -149,8 +149,8 @@ public class LotteryAppActivity extends Activity {
 		
 		String editString = String.format(res.getString(R.string.edit));
 		String deleteString = String.format(res.getString(R.string.delete));
-		String backString = String.format(res.getString(R.string.back));
-		String[] menuItems = new String[] {editString, deleteString, backString};
+//		String backString = String.format(res.getString(R.string.back));
+		String[] menuItems = new String[] {editString, deleteString};//, backString};
 		for (int i = 0; i<menuItems.length; i++) {
 		  menu.add(Menu.NONE, i, i, menuItems[i]);
 		}
@@ -167,8 +167,8 @@ public class LotteryAppActivity extends Activity {
 	  case 1:
 		  deleteTicket();
 	    return true;
-	  case 2:
-		  return true;
+//	  case 2:
+//		  return true;
 	  default:
 		  return super.onContextItemSelected(item);
 	  }
