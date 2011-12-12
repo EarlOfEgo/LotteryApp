@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,16 +46,14 @@ public class ShowListFragment extends Fragment{
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		
-
-		
 		activity = super.getActivity();
+		
+		setHasOptionsMenu(true);
 		
 		dbAdapter = new LotteryAppDatabaseAdapter(activity);
 		dbAdapter.open();
 		
-		GetWinningTicket lt = new GetWinningTicket();
-		lt.setDbAdapter(dbAdapter);
-		lt.execute("http://85.214.74.39/api/json/ticket");
+		
 		
 		rl = (RelativeLayout) inflater.inflate(R.layout.listoftickets, container, false);
 		listOfTickets = (ListView) rl.findViewById(R.id.listViewTickets);
@@ -65,12 +64,8 @@ public class ShowListFragment extends Fragment{
 		populateDate();
 		
 		
-		return inflater.inflate(R.layout.listoftickets, container, false);
+		return rl;
 	}
-	
-	
-	
-	
 	
 	private void onClickOnItem() {
 		listOfTickets.setOnItemClickListener(new OnItemClickListener() {
@@ -100,22 +95,23 @@ public class ShowListFragment extends Fragment{
 			dbAdapter.close();
 	}
 	
-	public boolean onCreateOptionsMenu(Menu menu){
-		menu.add(0,1,0, R.string.createNewTicket); 
-		menu.add(0,2,0, R.string.quit); 
-	    return true;
-	}
+	@Override
+    public void onCreateOptionsMenu (Menu menu, MenuInflater inflater) {
+       	inflater.inflate(R.menu.listmenu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 	
 	@Override
 	public boolean onOptionsItemSelected (MenuItem item){
+		System.out.println(item.getItemId());
 		switch (item.getItemId()){
-			case 1:
+			case R.id.newTicket:
 				Intent intent = new Intent(activity, CreateTicketActivity.class);
 				startActivityForResult(intent, RESULT_CREATE_TICKET);
 				break;
-//			case 2:
-//				this.finish();
-//				break;
+			case R.id.validateTickets:
+				makeAToast("VALIDATE TICKETS TODO");
+				break;
 		}
 		return true;
 	}
@@ -173,8 +169,7 @@ public class ShowListFragment extends Fragment{
 		
 		String editString = String.format(res.getString(R.string.edit));
 		String deleteString = String.format(res.getString(R.string.delete));
-//		String backString = String.format(res.getString(R.string.back));
-		String[] menuItems = new String[] {editString, deleteString};//, backString};
+		String[] menuItems = new String[] {editString, deleteString};
 		for (int i = 0; i<menuItems.length; i++) {
 		  menu.add(Menu.NONE, i, i, menuItems[i]);
 		}
@@ -191,8 +186,6 @@ public class ShowListFragment extends Fragment{
 	  case 1:
 		  deleteTicket();
 	    return true;
-//	  case 2:
-//		  return true;
 	  default:
 		  return super.onContextItemSelected(item);
 	  }

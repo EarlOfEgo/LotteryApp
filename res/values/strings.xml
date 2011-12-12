@@ -31,4 +31,5 @@
 	<string name="fetchedDate">Fetched date:</string>
 	<string name="showLastDraw">LAST DRAW</string>
 	<string name="myTickets">MY TICKETS</string>
+	<string name="validateTickets">Validate Tickets</string>
 </resources>
