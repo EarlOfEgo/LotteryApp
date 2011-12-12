@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/newTicket"
+        android:title="@string/createNewTicket" />
+          <!-- android:icon="@drawable/ic_new_game" -->
+          
+    <item android:id="@+id/validateTickets"
+        android:title="@string/validateTickets" />
+          <!-- android:icon="@drawable/ic_help" -->
+          
+</menu>
