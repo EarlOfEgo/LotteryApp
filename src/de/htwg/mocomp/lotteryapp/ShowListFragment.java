@@ -90,7 +90,7 @@ public class ShowListFragment extends Fragment{
 	
 	@Override
 	public void onDestroy(){
-		//activity.super.onDestroy();
+		super.onDestroy();
 		if(dbAdapter != null)
 			dbAdapter.close();
 	}

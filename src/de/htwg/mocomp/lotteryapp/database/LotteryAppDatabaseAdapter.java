@@ -31,8 +31,10 @@ public class LotteryAppDatabaseAdapter {
 	}
 	
 	public LotteryAppDatabaseAdapter open() throws SQLException{
+		
 		dbHelper = new LotteryAppDatabaseHelper(context);
-		database = dbHelper.getWritableDatabase();
+		if(database == null)
+			database = dbHelper.getWritableDatabase();
 		return this;
 	}
 	

@@ -25,7 +25,6 @@ public class LotteryAppActivity extends Activity {
 		//lt.setDbAdapter(dbAdapter);
 		lt.execute("http://85.214.74.39/api/json/ticket");
 		
-		
 		Intent intent = new Intent(this, ShowLastDrawFragment.class);
 		intent.putExtra("POJO", lt.getWinningTicket());
 
@@ -34,7 +33,7 @@ public class LotteryAppActivity extends Activity {
 	    actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	    actionBar.setDisplayShowTitleEnabled(false);
 	    Tab tab = actionBar.newTab()
-	            .setText("MY TICKETS")//R.string.myTickets)
+	            .setText(R.string.myTickets)//R.string.myTickets)
 	            .setTabListener(new TabListener<ShowListFragment>(
 	                    this, "LISTVIEW", ShowListFragment.class));
 	   
@@ -42,14 +41,14 @@ public class LotteryAppActivity extends Activity {
 
 
 	    tab = actionBar.newTab()
-	        .setText("LAST DRAW")////R.string.showLastDraw)
+	        .setText(R.string.showLastDraw)
 	        .setTabListener(new TabListener<ShowLastDrawFragment>(
 	                this, "SHOWVIEW", ShowLastDrawFragment.class));
 	    actionBar.addTab(tab);
 	    
 	    
-	    System.out.println("START WATCHER");
-	    startService(new Intent(this, CheckTicketService.class));
+	    Intent a = new Intent(this, CheckTicketService.class);
+	    startService(a);
 
 		
 	}

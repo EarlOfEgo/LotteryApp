@@ -19,6 +19,7 @@ public class GetWinningTicket extends AsyncTask<String, Void, LotteryTicket> {
 
 //	private LotteryAppDatabaseAdapter dbAdapter;
 	private LotteryTicket winningTicket;
+	private String newestTicketDate;
 	
 	@Override
 	protected LotteryTicket doInBackground(String... params) {
@@ -48,7 +49,9 @@ public class GetWinningTicket extends AsyncTask<String, Void, LotteryTicket> {
 				for (int i = 1; i < 7; i++) {
 					rightNumbers.add(numbers.getInt("no" + i));
 				}
-				ticket.setTicketCreationDate(new Date(numbers.getString("created")));
+				//ticket.setTicketCreationDate(new Date(numbers.getString("created")));
+				newestTicketDate = numbers.getString("created");
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -60,13 +63,9 @@ public class GetWinningTicket extends AsyncTask<String, Void, LotteryTicket> {
 	
 	@Override
 	protected void onPostExecute(LotteryTicket lastDraw) {
-		
+//		System.out.println(newestTicketDate);
 	}
-	
-	public boolean newTicket() {
-		//TODO!!!
-		return true;
-	}
+
 	
 //	private Map<Integer, LotteryTicket> getWinningTickets(List<Integer> rightNumbers) {
 //		//TODO JSON ITERATE
@@ -111,5 +110,12 @@ public class GetWinningTicket extends AsyncTask<String, Void, LotteryTicket> {
 	public void setWinningTicket(LotteryTicket winningTicket) {
 		this.winningTicket = winningTicket;
 	}
+
+
+	public String getNewestTicketDate() {
+		return newestTicketDate;
+	}
+
+
 
 }
