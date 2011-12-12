@@ -30,7 +30,8 @@ public class ShowLastDrawFragment extends Fragment{
 		activity = super.getActivity();
 		rl = (RelativeLayout) inflater.inflate(R.layout.showticket, container, false);
 		
-		ticket = (LotteryTicket) activity.getIntent().getSerializableExtra("POJO");
+//		ticket = (LotteryTicket) activity.getIntent().getSerializableExtra("POJO");
+		ticket = (LotteryTicket) getArguments().get("WINNINGTICKET");
 		
 		TextView number1 = (TextView) rl.findViewById(R.id.shownumber1);
         TextView number2 = (TextView) rl.findViewById(R.id.shownumber2);

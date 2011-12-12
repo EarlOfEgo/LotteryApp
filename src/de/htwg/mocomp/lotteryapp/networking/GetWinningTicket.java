@@ -18,7 +18,7 @@ import de.htwg.mocomp.lotteryapp.database.LotteryTicket;
 public class GetWinningTicket extends AsyncTask<String, Void, LotteryTicket> {
 
 //	private LotteryAppDatabaseAdapter dbAdapter;
-	private LotteryTicket winningTicket;
+	private LotteryTicket winningTicket = null;
 	private String newestTicketDate;
 	
 	@Override
