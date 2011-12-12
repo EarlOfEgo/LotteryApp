@@ -28,4 +28,7 @@
 	<string name="successfullyEdited">Ticket number: %1$s successfully changed</string>
 	<string name="successfullyCreated">Ticket number: %1$s successfully created</string>
 	<string name="deleteTicket">Are you sure you want to delete the ticket: %1$s?</string>
+	<string name="fetchedDate">Fetched date:</string>
+	<string name="showLastDraw">LAST DRAW</string>
+	<string name="myTickets">MY TICKETS</string>
 </resources>

@@ -1,5 +1,7 @@
 package de.htwg.mocomp.lotteryapp.database;
 
+import java.util.ArrayList;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -78,5 +80,23 @@ public class LotteryAppDatabaseAdapter {
 			values.put("number"+ i++, n);
 		}
 		database.update(TABLE_NAME, values , TICKET_ID + " = " + ticket.getId(), null);
+	}
+	
+	
+	public Cursor getWinningTickets(int Number) {
+		ArrayList<LotteryTicket> tickets = new ArrayList<LotteryTicket>();
+		String query = "SELECT * FROM " + TABLE_NAME +
+						" WHERE " + TICKET_NUMBER1 + " = " + Number +
+						" OR "  + TICKET_NUMBER2 + " = " + Number +
+						" OR "  + TICKET_NUMBER3 + " = " + Number +
+						" OR "  + TICKET_NUMBER4 + " = " + Number +
+						" OR "  + TICKET_NUMBER5 + " = " + Number +
+						" OR "  + TICKET_NUMBER6 + " = " + Number + ";";
+		Cursor cursor = database.rawQuery(query, null);
+		if(cursor != null){
+			cursor.moveToFirst();
+			return cursor;
+		} else
+			return null;
 	}
 }

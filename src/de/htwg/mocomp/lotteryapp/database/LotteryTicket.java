@@ -16,6 +16,7 @@ public class LotteryTicket implements Serializable {
 	private boolean delete;
 	private List<Integer> lotteryNumbers;
 	private Date ticketCreationDate;
+	private Date ticketFetchedTime;
 
 	public LotteryTicket() {
 		lotteryNumbers = new ArrayList<Integer>();
@@ -65,5 +66,13 @@ public class LotteryTicket implements Serializable {
 
 	public void setTicketCreationDate(Date date) {
 		this.ticketCreationDate = date;
+	}
+
+	public Date getTicketFetchedTime() {
+		return ticketFetchedTime;
+	}
+
+	public void setTicketFetchedTime(Date ticketFetchedTime) {
+		this.ticketFetchedTime = ticketFetchedTime;
 	}
 }
