@@ -16,6 +16,7 @@ public class LotteryAppDatabaseAdapter {
 	
 
 	private static final String TABLE_NAME = "tickets";
+	private static final String TABLE_WINNING_NAME = "winningtickets";
 	public static final String TICKET_ID = "_id"; 
 	public static final String TICKET_UUID = "uuid";
 	private static final String TICKET_NUMBER1 = "number1";
@@ -25,6 +26,7 @@ public class LotteryAppDatabaseAdapter {
 	private static final String TICKET_NUMBER5 = "number5";
 	private static final String TICKET_NUMBER6 = "number6";
 	private static final String TICKET_DATE = "ticketdate";
+	private static final String TICKET_FETCH_DATE = "fetchdate";
 	
 	public LotteryAppDatabaseAdapter(Context context) {
 		this.context = context;
@@ -85,20 +87,52 @@ public class LotteryAppDatabaseAdapter {
 	}
 	
 	
-	public Cursor getWinningTickets(int Number) {
-		ArrayList<LotteryTicket> tickets = new ArrayList<LotteryTicket>();
-		String query = "SELECT * FROM " + TABLE_NAME +
-						" WHERE " + TICKET_NUMBER1 + " = " + Number +
-						" OR "  + TICKET_NUMBER2 + " = " + Number +
-						" OR "  + TICKET_NUMBER3 + " = " + Number +
-						" OR "  + TICKET_NUMBER4 + " = " + Number +
-						" OR "  + TICKET_NUMBER5 + " = " + Number +
-						" OR "  + TICKET_NUMBER6 + " = " + Number + ";";
-		Cursor cursor = database.rawQuery(query, null);
-		if(cursor != null){
-			cursor.moveToFirst();
-			return cursor;
-		} else
-			return null;
+//	public Cursor getWinningTickets(int Number) {
+//		ArrayList<LotteryTicket> tickets = new ArrayList<LotteryTicket>();
+//		String query = "SELECT * FROM " + TABLE_NAME +
+//						" WHERE " + TICKET_NUMBER1 + " = " + Number +
+//						" OR "  + TICKET_NUMBER2 + " = " + Number +
+//						" OR "  + TICKET_NUMBER3 + " = " + Number +
+//						" OR "  + TICKET_NUMBER4 + " = " + Number +
+//						" OR "  + TICKET_NUMBER5 + " = " + Number +
+//						" OR "  + TICKET_NUMBER6 + " = " + Number + ";";
+//		Cursor cursor = database.rawQuery(query, null);
+//		if(cursor != null){
+//			cursor.moveToFirst();
+//			return cursor;
+//		} else
+//			return null;
+//	}
+	
+	
+	public long insertNewWinningTicket(LotteryTicket ticket){
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(TICKET_FETCH_DATE, ticket.getTicketFetchedTime().getTime());
+		int i = 1;
+		for(Integer number : ticket.getLottaryNumbers()){
+			contentValues.put("number" + i++, number);
+		}
+		contentValues.put(TICKET_DATE, ticket.getTicketCreationDate().getTime());
+		return database.insert(TABLE_WINNING_NAME, null, contentValues);
+	}
+	
+	
+	public void updateWinningTicket(LotteryTicket ticket){
+		ContentValues values = new ContentValues();
+		values.put(TICKET_FETCH_DATE, ticket.getTicketFetchedTime().getTime());
+		values.put(TICKET_DATE, ticket.getTicketCreationDate().getTime());
+		int i = 1;
+		for (Integer n: ticket.getLottaryNumbers()) {
+			values.put("number"+ i++, n);
+		}
+		database.update(TABLE_WINNING_NAME, values , TICKET_ID + " = " + 1, null);
+	}
+	
+	public Cursor getWinningTicket(){
+		String select = "SELECT * FROM " + TABLE_WINNING_NAME +" WHERE _id == " + 1;
+		Cursor cursor = database.rawQuery(select, null);
+		if(cursor != null) 
+			cursor.moveToLast();
+		return cursor;
 	}
 }

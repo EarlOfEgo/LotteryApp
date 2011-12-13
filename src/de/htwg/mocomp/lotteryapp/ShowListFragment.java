@@ -5,30 +5,30 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import android.app.*;
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import de.htwg.mocomp.lotteryapp.database.LotteryAppDatabaseAdapter;
 import de.htwg.mocomp.lotteryapp.database.LotteryTicket;
-import de.htwg.mocomp.lotteryapp.networking.GetWinningTicket;
 
 public class ShowListFragment extends Fragment{
 	private Activity activity;
