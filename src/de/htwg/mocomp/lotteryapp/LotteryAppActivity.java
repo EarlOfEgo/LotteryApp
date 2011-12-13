@@ -27,7 +27,6 @@ import de.htwg.mocomp.lotteryapp.database.LotteryTicket;
 import de.htwg.mocomp.lotteryapp.networking.CheckTicketService;
 
 public class LotteryAppActivity extends Activity {
-	private static final Fragment CONTENT_VIEW_ID = null;
 	private LotteryAppDatabaseAdapter dbAdapter;
 	
 	
@@ -54,8 +53,11 @@ public class LotteryAppActivity extends Activity {
 
 	    bar.addTab(tabA);
 	    bar.addTab(tabB);
+	    Boolean fromService = getIntent().getBooleanExtra("SERVICE", false);
+	    if(fromService)
+	    	bar.selectTab(tabB);
 
-//	    new DoCheck().execute("http://85.214.74.39/api/json/ticket");
+	    new DoCheck().execute("http://85.214.74.39/api/json/ticket");
 	    
 	    
 	    Intent a = new Intent(this, CheckTicketService.class);
@@ -142,7 +144,7 @@ public class LotteryAppActivity extends Activity {
 			dbAdapter.open();
 			ticket.setTicketFetchedTime(new Date(System.currentTimeMillis()));
 			Cursor c = dbAdapter.getWinningTicket();
-			if(c == null){
+			if(c.isNull(1)){
 				dbAdapter.insertNewWinningTicket(ticket);
 			} else {
 				System.out.println(c.getLong(8) + "<->" + ticket.getTicketCreationDate().getTime());
@@ -154,42 +156,6 @@ public class LotteryAppActivity extends Activity {
 			}
 			
 		}
-
-	
-//	private Map<Integer, LotteryTicket> getWinningTickets(List<Integer> rightNumbers) {
-//		//TODO JSON ITERATE
-//		
-//		Map<Integer, LotteryTicket> tickets = new HashMap<Integer, LotteryTicket>();
-//		for (Integer integer : rightNumbers) {
-//			Cursor cursor = dbAdapter.getWinningTickets(integer);
-//			for (boolean hasItem = cursor.moveToFirst(); hasItem; hasItem = cursor.moveToNext()) {
-//			    if(hasItem) {
-//			    	LotteryTicket ticket = new LotteryTicket();
-//			    	ticket.setId(cursor.getInt(0));
-//			    	ticket.setUuid(UUID.fromString(cursor.getString(1)));
-//			    	ticket.setTicketCreationDate(new Date(cursor.getLong(8)));
-//			    	List<Integer> lottaryNumbers = new ArrayList<Integer>();
-//			    	for (int i = 1; i < 7; i++) {
-//						lottaryNumbers.add(cursor.getInt(i));
-//					}
-//			    	ticket.setLottaryNumbers(lottaryNumbers);
-//			    	if(!tickets.containsKey(ticket.getId())){
-//			    		tickets.put(ticket.getId(), ticket);
-//			    	}
-//			    }
-//			}
-//		}
-//		return tickets;
-//	}
-//
-//	public LotteryAppDatabaseAdapter getDbAdapter() {
-//		return dbAdapter;
-//	}
-//
-//	public void setDbAdapter(LotteryAppDatabaseAdapter dbAdapter) {
-//		this.dbAdapter = dbAdapter;
-//	}
-
 	}
 
 }

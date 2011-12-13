@@ -10,6 +10,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -110,6 +111,8 @@ public class ShowListFragment extends Fragment{
 				startActivityForResult(intent, RESULT_CREATE_TICKET);
 				break;
 			case R.id.validateTickets:
+				dbAdapter.checkAmountOfRightNumbers();
+				validateTickets();
 				makeAToast("VALIDATE TICKETS TODO");
 				break;
 		}
@@ -215,6 +218,19 @@ public class ShowListFragment extends Fragment{
 		ticket.setTicketCreationDate(new Date(cursor.getLong(8)));
 	}
 	
-	
+	private void validateTickets(){
+		cursor = dbAdapter.getAllTickets();
+		String[] from = new String[] {dbAdapter.TICKET_ID, dbAdapter.TICKET_UUID, dbAdapter.AMOUNT_OF_WINNING};
+		int[] to = new int[]{R.id.ticketNumberID, R.id.ticketUUID, R.id.amountOfWinningText};
+		cursorAdapter = new SimpleCursorAdapter(activity, R.layout.listitem, cursor, from, to);
+		for (int i = 0; i < cursorAdapter.getCount(); i++) {
+			RelativeLayout rl = (RelativeLayout) (cursorAdapter.getView(i, getView(), null));
+			RelativeLayout rl2 = (RelativeLayout) rl.findViewById(R.id.winningAmountRelativeLayout);
+			rl2.setBackgroundColor(Color.GREEN);
+			
+		}
+		listOfTickets.setAdapter(cursorAdapter);
+		
+	}
 	
 }

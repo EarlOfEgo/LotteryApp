@@ -1,6 +1,7 @@
 package de.htwg.mocomp.lotteryapp.database;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -25,6 +26,7 @@ public class LotteryAppDatabaseAdapter {
 	private static final String TICKET_NUMBER4 = "number4";
 	private static final String TICKET_NUMBER5 = "number5";
 	private static final String TICKET_NUMBER6 = "number6";
+	public static final String AMOUNT_OF_WINNING = "winningamount";
 	private static final String TICKET_DATE = "ticketdate";
 	private static final String TICKET_FETCH_DATE = "fetchdate";
 	
@@ -33,7 +35,8 @@ public class LotteryAppDatabaseAdapter {
 	}
 	
 	public LotteryAppDatabaseAdapter open() throws SQLException{
-		
+		if(dbHelper != null)
+			close();
 		dbHelper = new LotteryAppDatabaseHelper(context);
 		if(database == null)
 			database = dbHelper.getWritableDatabase();
@@ -51,7 +54,7 @@ public class LotteryAppDatabaseAdapter {
 		for(Integer number : ticket.getLottaryNumbers()){
 			contentValues.put("number" + i++, number);
 		}
-		
+		contentValues.put(AMOUNT_OF_WINNING, 0);
 		contentValues.put(TICKET_DATE, ticket.getTicketCreationDate().getTime());
 		return database.insert(TABLE_NAME, null, contentValues);
 	}
@@ -59,7 +62,7 @@ public class LotteryAppDatabaseAdapter {
 	public Cursor getAllTickets(){
 		return database.query(TABLE_NAME,
 							new String[] {	TICKET_ID, TICKET_UUID, TICKET_NUMBER1, TICKET_NUMBER2,
-											TICKET_NUMBER3, TICKET_NUMBER4, TICKET_NUMBER5, TICKET_NUMBER6, TICKET_DATE }, 
+											TICKET_NUMBER3, TICKET_NUMBER4, TICKET_NUMBER5, TICKET_NUMBER6, TICKET_DATE, AMOUNT_OF_WINNING }, 
 							null, null, null, null, null);
 	}
 	
@@ -79,6 +82,7 @@ public class LotteryAppDatabaseAdapter {
 		ContentValues values = new ContentValues();
 		values.put(TICKET_UUID, ticket.getUuid().toString());
 		values.put(TICKET_DATE, ticket.getTicketCreationDate().getTime());
+		values.put(AMOUNT_OF_WINNING, 0);
 		int i = 1;
 		for (Integer n: ticket.getLottaryNumbers()) {
 			values.put("number"+ i++, n);
@@ -87,22 +91,7 @@ public class LotteryAppDatabaseAdapter {
 	}
 	
 	
-//	public Cursor getWinningTickets(int Number) {
-//		ArrayList<LotteryTicket> tickets = new ArrayList<LotteryTicket>();
-//		String query = "SELECT * FROM " + TABLE_NAME +
-//						" WHERE " + TICKET_NUMBER1 + " = " + Number +
-//						" OR "  + TICKET_NUMBER2 + " = " + Number +
-//						" OR "  + TICKET_NUMBER3 + " = " + Number +
-//						" OR "  + TICKET_NUMBER4 + " = " + Number +
-//						" OR "  + TICKET_NUMBER5 + " = " + Number +
-//						" OR "  + TICKET_NUMBER6 + " = " + Number + ";";
-//		Cursor cursor = database.rawQuery(query, null);
-//		if(cursor != null){
-//			cursor.moveToFirst();
-//			return cursor;
-//		} else
-//			return null;
-//	}
+
 	
 	
 	public long insertNewWinningTicket(LotteryTicket ticket){
@@ -134,5 +123,34 @@ public class LotteryAppDatabaseAdapter {
 		if(cursor != null) 
 			cursor.moveToLast();
 		return cursor;
+	}
+	
+	
+	
+	public void checkAmountOfRightNumbers() {
+		Cursor winningCursor = getWinningTicket();
+		List<Integer> winningNumbers = new ArrayList<Integer>();
+		for (int i = 1; i < 7; i++) {
+			winningNumbers.add(winningCursor.getInt(i));
+		}
+		winningCursor.close();
+		
+		
+		Cursor allTickets = getAllTickets();
+		allTickets.moveToFirst();
+		while (allTickets.isAfterLast() == false) {
+			int winAmount = 0;
+			for (int i = 1; i < 7; i++) {
+//				System.out.println(allTickets.getColumnIndex("number"+i));
+				if(winningNumbers.contains(allTickets.getInt(allTickets.getColumnIndex("number"+i)))){
+					winAmount++;
+				}
+			}
+			ContentValues values = new ContentValues();
+			values.put(AMOUNT_OF_WINNING, winAmount);
+			database.update(TABLE_NAME, values , TICKET_ID + " = " + allTickets.getInt(0), null);
+						
+       	    allTickets.moveToNext();
+        }
 	}
 }

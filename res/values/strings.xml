@@ -32,4 +32,5 @@
 	<string name="showLastDraw">LAST DRAW</string>
 	<string name="myTickets">MY TICKETS</string>
 	<string name="validateTickets">Validate Tickets</string>
+	<string name="validateTicket">Validate Ticket</string>
 </resources>

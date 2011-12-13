@@ -18,6 +18,7 @@ public class LotteryAppDatabaseHelper extends SQLiteOpenHelper{
 	private static final String TICKET_NUMBER4 = "number4";
 	private static final String TICKET_NUMBER5 = "number5";
 	private static final String TICKET_NUMBER6 = "number6";
+	private static final String AMOUNT_OF_WINNING = "winningamount";
 	private static final String TICKET_DATE = "ticketdate";
 	private static final String TICKET_FETCH_DATE = "fetchdate";
 	private static final String LotteryAppCreateTable = 
@@ -30,6 +31,7 @@ public class LotteryAppDatabaseHelper extends SQLiteOpenHelper{
 									TICKET_NUMBER4 + " INTEGER not NULL, " +
 									TICKET_NUMBER5 + " INTEGER not NULL, " +
 									TICKET_NUMBER6 + " INTEGER not NULL, " +
+									AMOUNT_OF_WINNING + " INTEGER not NULL, " +
 									TICKET_DATE + " LONG not NULL);";
 	
 	private static final String LotteryAppCreateTableWinningTicket =
@@ -52,6 +54,8 @@ public class LotteryAppDatabaseHelper extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub//
+		System.out.println("LALALALALALALAAL");
+		System.out.println(LotteryAppCreateTable);
 		db.execSQL(LotteryAppCreateTable);
 		db.execSQL(LotteryAppCreateTableWinningTicket);
 	}
