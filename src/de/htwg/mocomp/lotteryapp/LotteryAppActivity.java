@@ -57,7 +57,7 @@ public class LotteryAppActivity extends Activity {
 	    if(fromService)
 	    	bar.selectTab(tabB);
 
-	    new DoCheck().execute("http://85.214.74.39/api/json/ticket");
+//	    new DoCheck().execute("http://85.214.74.39/api/json/ticket");
 	    
 	    
 	    Intent a = new Intent(this, CheckTicketService.class);

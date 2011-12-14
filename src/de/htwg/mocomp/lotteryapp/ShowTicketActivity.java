@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -63,6 +64,7 @@ public class ShowTicketActivity extends Activity{
         
 		if(ticket != null){
 			dbAdapter = new LotteryAppDatabaseAdapter(this);
+//			dbAdapter.close();
 			dbAdapter.open();
 			c = dbAdapter.getWinningTicket();
 			
@@ -79,6 +81,9 @@ public class ShowTicketActivity extends Activity{
 			
 			
 			uuid.setText(ticket.getUuid().toString());
+			
+//			System.out.println(ticket.getTicketCreationDate());
+			
 			String currentDateTimeString = new SimpleDateFormat("dd.MM.yyyy HH:mm").format(ticket.getTicketCreationDate());
 	        creationDate.setText(currentDateTimeString);
 		}
@@ -154,9 +159,11 @@ public class ShowTicketActivity extends Activity{
 					winningNumbers.add(c.getInt(i));
 				}
 				int winningAmount = validateTicket(winningNumbers);
-				if(winningAmount > 0) {
-					Toast.makeText(this, "CONGRATS " +winningAmount + "TODO", Toast.LENGTH_SHORT).show();
-				}
+				Resources res = getResources();
+				String ticketWin = String.format(res.getString(R.string.messageAfterVerifiedTicketWin), winningAmount);
+				String ticketLose = String.format(res.getString(R.string.messageAfterVerifiedTicketLose), winningAmount);
+				Toast.makeText(this, winningAmount > 0? ticketWin : ticketLose, Toast.LENGTH_SHORT).show();
+
 				break;
 		}
 		 

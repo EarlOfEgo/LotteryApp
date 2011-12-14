@@ -27,7 +27,7 @@ public class LotteryAppDatabaseAdapter {
 	private static final String TICKET_NUMBER5 = "number5";
 	private static final String TICKET_NUMBER6 = "number6";
 	public static final String AMOUNT_OF_WINNING = "winningamount";
-	private static final String TICKET_DATE = "ticketdate";
+	public static final String TICKET_DATE = "ticketdate";
 	private static final String TICKET_FETCH_DATE = "fetchdate";
 	
 	public LotteryAppDatabaseAdapter(Context context) {
@@ -36,15 +36,19 @@ public class LotteryAppDatabaseAdapter {
 	
 	public LotteryAppDatabaseAdapter open() throws SQLException{
 		if(dbHelper != null)
-			close();
+			dbHelper.close();
 		dbHelper = new LotteryAppDatabaseHelper(context);
-		if(database == null)
+		if(database == null) {
 			database = dbHelper.getWritableDatabase();
+			database.setLockingEnabled(false);
+		}
+			
 		return this;
 	}
 	
 	public void close() {
-		dbHelper.close();
+		if(dbHelper != null)
+			dbHelper.close();
 	}
 	
 	public long insertNewTicket(LotteryTicket ticket){
@@ -55,6 +59,8 @@ public class LotteryAppDatabaseAdapter {
 			contentValues.put("number" + i++, number);
 		}
 		contentValues.put(AMOUNT_OF_WINNING, 0);
+		
+		
 		contentValues.put(TICKET_DATE, ticket.getTicketCreationDate().getTime());
 		return database.insert(TABLE_NAME, null, contentValues);
 	}
@@ -127,7 +133,7 @@ public class LotteryAppDatabaseAdapter {
 	
 	
 	
-	public void checkAmountOfRightNumbers() {
+	public int checkAmountOfRightNumbers() {
 		Cursor winningCursor = getWinningTicket();
 		List<Integer> winningNumbers = new ArrayList<Integer>();
 		for (int i = 1; i < 7; i++) {
@@ -138,6 +144,7 @@ public class LotteryAppDatabaseAdapter {
 		
 		Cursor allTickets = getAllTickets();
 		allTickets.moveToFirst();
+		int winningTickets = 0;
 		while (allTickets.isAfterLast() == false) {
 			int winAmount = 0;
 			for (int i = 1; i < 7; i++) {
@@ -146,11 +153,14 @@ public class LotteryAppDatabaseAdapter {
 					winAmount++;
 				}
 			}
+			if(winAmount > 0) winningTickets++;
 			ContentValues values = new ContentValues();
 			values.put(AMOUNT_OF_WINNING, winAmount);
 			database.update(TABLE_NAME, values , TICKET_ID + " = " + allTickets.getInt(0), null);
 						
        	    allTickets.moveToNext();
         }
+		
+		return winningTickets;
 	}
 }

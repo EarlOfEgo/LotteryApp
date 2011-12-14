@@ -21,6 +21,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.IBinder;
 import de.htwg.mocomp.lotteryapp.LotteryAppActivity;
@@ -91,7 +92,8 @@ public class CheckTicketService extends Service {
 				            
 							
 						} catch (Exception e) {
-							e.printStackTrace();
+							return;
+//							e.printStackTrace();
 						}
 						
 						
@@ -99,18 +101,23 @@ public class CheckTicketService extends Service {
 						dbAdapter.open();
 						Cursor c = dbAdapter.getWinningTicket();
 						System.out.println("CHECK CHECK");
-						System.out.println(c.getLong(8) +"<->"+ ticket.getTicketCreationDate().getTime());
-						
+//						System.out.println(c.getLong(8) +"<->"+ ticket.getTicketCreationDate().getTime());
+				
 						if(c.getLong(8) != ticket.getTicketCreationDate().getTime()){
 							ticket.setTicketFetchedTime(new Date(System.currentTimeMillis()));
 							dbAdapter.updateWinningTicket(ticket);
+							
+							
+							Resources res = getResources();
+							String tickerText = String.format(res.getString(R.string.newTicketAvailable));
+							String notificationText = String.format(res.getString(R.string.newTicketAvailableNotification));
 							
 							
 							Context context = getApplicationContext();
 							NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 							Notification newTicket = new Notification();
 							newTicket.icon = R.drawable.ticket;
-							newTicket.tickerText = "WINNER WINNER CHICKEN DINNER?!";
+							newTicket.tickerText = notificationText;
 							newTicket.when = System.currentTimeMillis();
 							newTicket.flags = Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
 							
@@ -118,7 +125,7 @@ public class CheckTicketService extends Service {
 							Intent notificationintent = new Intent(context, LotteryAppActivity.class);
 							notificationintent.putExtra("SERVICE", true);
 							PendingIntent intent = PendingIntent.getActivity(context, 0, notificationintent, android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
-							newTicket.setLatestEventInfo(context, "TRULALA", "WINNER WINNER CHICKEN DINNER?!", intent);
+							newTicket.setLatestEventInfo(context, tickerText, notificationText, intent);
 							manager.notify(0, newTicket);
 							
 						}

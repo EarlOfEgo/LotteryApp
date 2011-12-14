@@ -33,4 +33,10 @@
 	<string name="myTickets">MY TICKETS</string>
 	<string name="validateTickets">Validate Tickets</string>
 	<string name="validateTicket">Validate Ticket</string>
+	<string name="newTicketAvailable">A new lottery ticket is available</string>
+	<string name="newTicketAvailableNotification">WINNER WINNER, CHICKEN DINNER?!</string>
+	<string name="messageAfterVerifiedWin">Congratulations, %1$s of your tickets have at least one right number</string>
+	<string name="messageAfterVerifiedLose">No winning ticket.</string>
+	<string name="messageAfterVerifiedTicketWin">Congratulations, %1$s of your numbers in this ticket are right.</string>
+	<string name="messageAfterVerifiedTicketLose">No right numbers.</string>
 </resources>

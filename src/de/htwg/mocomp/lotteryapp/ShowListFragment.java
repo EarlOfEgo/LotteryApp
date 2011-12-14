@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -27,6 +28,7 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 import de.htwg.mocomp.lotteryapp.database.LotteryAppDatabaseAdapter;
 import de.htwg.mocomp.lotteryapp.database.LotteryTicket;
@@ -91,9 +93,9 @@ public class ShowListFragment extends Fragment{
 	
 	@Override
 	public void onDestroy(){
-		super.onDestroy();
 		if(dbAdapter != null)
 			dbAdapter.close();
+		super.onDestroy();
 	}
 	
 	@Override
@@ -111,9 +113,13 @@ public class ShowListFragment extends Fragment{
 				startActivityForResult(intent, RESULT_CREATE_TICKET);
 				break;
 			case R.id.validateTickets:
-				dbAdapter.checkAmountOfRightNumbers();
+				int amount = dbAdapter.checkAmountOfRightNumbers();
 				validateTickets();
-				makeAToast("VALIDATE TICKETS TODO");
+				Resources res = getResources();
+				String messageWin = String.format(res.getString(R.string.messageAfterVerifiedWin), amount);
+				String messageLose = String.format(res.getString(R.string.messageAfterVerifiedLose));
+				Toast.makeText(activity, amount > 0 ? messageWin : messageLose, Toast.LENGTH_LONG).show();
+
 				break;
 		}
 		return true;
@@ -184,7 +190,9 @@ public class ShowListFragment extends Fragment{
 	  case 0:
 		  Intent intent = new Intent(activity, CreateTicketActivity.class);
 		  intent.putExtra("POJO", ticket);
+		  dbAdapter.close();
 		  startActivityForResult(intent, RESULT_CREATE_TICKET);
+		  
 	    return true;
 	  case 1:
 		  deleteTicket();
@@ -215,22 +223,44 @@ public class ShowListFragment extends Fragment{
 			a.add(cursor.getInt(i));
 		}
 		ticket.setLottaryNumbers(a);
-		ticket.setTicketCreationDate(new Date(cursor.getLong(8)));
+		ticket.setTicketCreationDate(new Date(cursor.getLong(cursor.getColumnIndex(dbAdapter.TICKET_DATE))));
 	}
 	
 	private void validateTickets(){
 		cursor = dbAdapter.getAllTickets();
 		String[] from = new String[] {dbAdapter.TICKET_ID, dbAdapter.TICKET_UUID, dbAdapter.AMOUNT_OF_WINNING};
 		int[] to = new int[]{R.id.ticketNumberID, R.id.ticketUUID, R.id.amountOfWinningText};
-		cursorAdapter = new SimpleCursorAdapter(activity, R.layout.listitem, cursor, from, to);
-		for (int i = 0; i < cursorAdapter.getCount(); i++) {
-			RelativeLayout rl = (RelativeLayout) (cursorAdapter.getView(i, getView(), null));
-			RelativeLayout rl2 = (RelativeLayout) rl.findViewById(R.id.winningAmountRelativeLayout);
-			rl2.setBackgroundColor(Color.GREEN);
-			
-		}
+		cursorAdapter = new MyCursorAdapter(activity, R.layout.listitem, cursor, from, to);
 		listOfTickets.setAdapter(cursorAdapter);
 		
 	}
+	
+	
+	private class MyCursorAdapter extends SimpleCursorAdapter
+	{
+
+	    public MyCursorAdapter(Context context, int layout, Cursor c,String[] from, int[] to)
+	    {
+	        super(context, layout, c, from, to);
+	    } 
+	    
+	    
+	    @Override
+	    public View newView(Context context, Cursor cursor, ViewGroup parent) {
+	    	// TODO Auto-generated method stub
+//	    	System.out.println(cursor.getPosition());
+	    	
+	    	View v = super.newView(context, cursor, parent);
+	    	
+	    	TextView tv = (TextView) v.findViewById(R.id.amountOfWinningText);
+	    	if(cursor.getInt(cursor.getColumnIndex("winningamount")) > 0)
+	    		tv.setBackgroundColor(Color.GREEN);
+	    	else
+	    		tv.setBackgroundColor(Color.RED);
+	    	
+	    	return v;
+	    }
+	}
+	
 	
 }
