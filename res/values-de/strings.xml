@@ -26,15 +26,15 @@
 		<string name="successfullyEdited">Ticket Nummer: %1$s erfolgreich berarbeitet</string>
 		<string name="successfullyCreated">Ticket Nummer: %1$s erfolgreich erstellt</string>
 		<string name="deleteTicket">Ticket: %1$s wirklich löschen?</string>
-		<string name="fetchedDate">Fetched date:</string>
+		<string name="fetchedDate">Abruf Datum:</string>
 		<string name="showLastDraw">LAST DRAW</string>
-		<string name="myTickets">MY TICKETS</string>
-		<string name="validateTickets">Validate Tickets</string>
-		<string name="validateTicket">Validate Ticket</string>
-		<string name="newTicketAvailable">A new lottery ticket is available</string>
+		<string name="myTickets">Meine Tickets</string>
+		<string name="validateTickets">Validiere Tickets</string>
+		<string name="validateTicket">Validiere Ticket</string>
+		<string name="newTicketAvailable">Ein neues Lotto Ticket ist verfügbar</string>
 		<string name="newTicketAvailableNotification">WINNER WINNER, CHICKEN DINNER?!</string>
-		<string name="messageAfterVerifiedWin">Congratulations, %1$s of your tickets have a right number</string>
-		<string name="messageAfterVerifiedLose">No winning ticket.</string>
-		<string name="messageAfterVerifiedTicketWin">Congratulations, %1$s of your numbers in this ticket are right.</string>
-		<string name="messageAfterVerifiedTicketLose">No right numbers.</string>
+		<string name="messageAfterVerifiedWin">Glückwunsch, %1$s Tickets haben mindestens eine richtige Zahl</string>
+		<string name="messageAfterVerifiedLose">Kein Ticket hat gewonnen</string>
+		<string name="messageAfterVerifiedTicketWin">Glückwunsch, %1$s von deinen Zahlen sind richtig</string>
+		<string name="messageAfterVerifiedTicketLose">Keine richtigen Zahlen</string>
     </resources>

@@ -45,9 +45,7 @@ public class ShowListFragment extends Fragment{
 	
 	
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
 		activity = super.getActivity();
 		
@@ -236,19 +234,15 @@ public class ShowListFragment extends Fragment{
 	}
 	
 	
-	private class MyCursorAdapter extends SimpleCursorAdapter
-	{
+	private class MyCursorAdapter extends SimpleCursorAdapter {
 
-	    public MyCursorAdapter(Context context, int layout, Cursor c,String[] from, int[] to)
-	    {
+	    public MyCursorAdapter(Context context, int layout, Cursor c,String[] from, int[] to) {
 	        super(context, layout, c, from, to);
 	    } 
 	    
 	    
 	    @Override
 	    public View newView(Context context, Cursor cursor, ViewGroup parent) {
-	    	// TODO Auto-generated method stub
-//	    	System.out.println(cursor.getPosition());
 	    	
 	    	View v = super.newView(context, cursor, parent);
 	    	

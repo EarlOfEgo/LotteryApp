@@ -4,35 +4,24 @@ import java.text.SimpleDateFormat;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import de.htwg.mocomp.lotteryapp.database.LotteryAppDatabaseAdapter;
-import de.htwg.mocomp.lotteryapp.database.LotteryTicket;
 
 public class ShowLastDrawFragment extends Fragment{
 
-	private LotteryTicket ticket;
-	private Intent intent;
-	private static final int RESULT_EDIT_TICKET = 0;
 	private LotteryAppDatabaseAdapter dbAdapter;
-	private RelativeLayout rl;
 	private Activity activity;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		
 		
 		activity = super.getActivity();
-		rl = (RelativeLayout) inflater.inflate(R.layout.showticket, container, false);
 		dbAdapter = new LotteryAppDatabaseAdapter(activity);
 		dbAdapter.open();
 		Cursor c = dbAdapter.getWinningTicket();
